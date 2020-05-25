@@ -125,6 +125,7 @@ public class FileUtils
         {
             // 火狐浏览器
             filename = new String(fileName.getBytes(), "ISO8859-1");
+        	//filename = new String(fileName.getBytes(), "utf-8");
         }
         else if (agent.contains("Chrome"))
         {
