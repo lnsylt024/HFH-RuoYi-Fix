@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('更新')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal" id="form-demo-edit" th:object="${demo}">
+            <input type="hidden" id="demoId" name="demoId" th:field="*{demoId}" />
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required" for="id_demoName">名前:</label>
+                <div class="col-sm-8">
+                    <input id="id_demoName" class="form-control" type="text" name="demoName" th:field="*{demoName}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required" for="id_demoAge">年齢:</label>
+                <div class="col-sm-8">
+                    <input id="id_demoAge" class="form-control" type="text" name="demoAge" th:field="*{demoAge}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required" for="id_demoEdu">学歴:</label>
+                <div class="col-sm-8">
+                    <select id="id_demoAge" class="form-control" name="demoEdu" th:field="*{demoEdu}">
+                        <option value="">選択してください</option>
+                        <option value="spe">大学(Specialist)</option>
+                        <option value="ugd">大学院(Undergraduate)</option>
+                        <option value="mst">修士(Master)</option>
+                        <option value="phd">博士(PhD)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required" for="id_demoSort">順番:</label>
+                <div class="col-sm-8">
+                    <input id="id_demoSort" class="form-control" type="text" name="demoSort" th:field="*{demoSort}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_status" class="col-sm-3 control-label">ステータス:</label>
+                <div class="col-sm-8">
+                    <label class="toggle-switch switch-solid">
+                        <input type="checkbox" name="status" id="id_status" th:checked="${demo.status=='0'?true:false}">
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_remark" class="col-sm-3 control-label">備考:</label>
+                <div class="col-sm-8">
+                    <textarea name="remark" id="id_remark" class="form-control" cols="30" rows="5" th:field="*{remark}"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer"/>
+    <script type="text/javascript">
+        $(function(){
+            console.log("編集画面");
+        });
+        /*
+        $("#form-demo-edit").validate({
+        	return true;
+        });
+        */
+        function submitHandler() {
+            if ($.validate.form()) {
+                edit();
+            }
+        }
+        
+        function edit(){
+        	var demoId = $("input[name='demoId']").val();
+        	var demoName = $("input[name='demoName']").val();
+            var demoAge = $("input[name='demoAge']").val();
+            var demoSort = $("input[name='demoSort']").val();
+            var demoEdu = $("select[name='demoEdu']").val();
+            var status = $("input[name='status']").is(':checked') == true ? 0 : 1;
+            var remark = $("textarea[name='remark']").val();
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url:ctx + "sample/demo/edit",
+                data:{
+                    "demoId":demoId,
+                    "demoName":demoName,
+                    "demoAge":demoAge,
+                    "demoSort":demoSort,
+                    "demoEdu":demoEdu,
+                    "status":status,
+                    "remark":remark
+                },
+                async : false,
+                error : function(request){
+                    console.error("request",request);
+                    $.modal.alertError("システムエラー");
+                },
+                success : function(data){
+                    console.log("data",data);
+                    $.operate.successCallback(data);
+                }   
+            });
+        }
+        
+    </script>
+</body>
+</html>
