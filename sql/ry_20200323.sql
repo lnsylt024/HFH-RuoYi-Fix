@@ -155,6 +155,8 @@ create table sys_menu (
 insert into sys_menu values('1', '系统管理', '0', '1', '#', '', 'M', '0', '', 'fa fa-gear',         'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '系统管理目录');
 insert into sys_menu values('2', '系统监控', '0', '2', '#', '', 'M', '0', '', 'fa fa-video-camera', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '系统监控目录');
 insert into sys_menu values('3', '系统工具', '0', '3', '#', '', 'M', '0', '', 'fa fa-bars',         'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '系统工具目录');
+insert into sys_menu values('4', 'メニュー1', '0', '3', '#', '', 'M', '0', '', 'fa fa-bars','admin', '2020-05-20 11-33-00', 'ry', '2018-03-16 12-00-00', 'メニュー1の説明');
+
 -- 二级菜单
 insert into sys_menu values('100',  '用户管理', '1', '1', '/system/user',          '', 'C', '0', 'system:user:view',         '#', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '用户管理菜单');
 insert into sys_menu values('101',  '角色管理', '1', '2', '/system/role',          '', 'C', '0', 'system:role:view',         '#', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '角色管理菜单');
@@ -250,7 +252,10 @@ insert into sys_menu values('1058', '生成修改', '114', '2', '#', '',  'F', '
 insert into sys_menu values('1059', '生成删除', '114', '3', '#', '',  'F', '0', 'tool:gen:remove',   '#', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
 insert into sys_menu values('1060', '预览代码', '114', '4', '#', '',  'F', '0', 'tool:gen:preview',  '#', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
 insert into sys_menu values('1061', '生成代码', '114', '5', '#', '',  'F', '0', 'tool:gen:code',     '#', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
-
+-- メニュー1
+insert into sys_menu values('4001', 'サブメニュー1', '4', '1', '/system/user', '',  'C', '0', 'system:user:view', '#', 'admin', '2020-05-20 12-00-00', 'sa', '2020-05-20 12-00-00', 'サブメニュー1');
+insert into sys_menu values('4002', 'サブメニュー2', '4', '2', '/system/role', '',  'C', '0', 'system:role:view', '#', 'admin', '2020-05-20 12-00-00', 'sa', '2020-05-20 12-00-00', 'サブメニュー2');
+insert into sys_menu values('4003', 'サブメニュー3', '4', '3', '/system/menu', '',  'C', '0', 'system:menu:view', '#', 'admin', '2020-05-20 12-00-00', 'sa', '2020-05-20 12-00-00', 'サブメニュー3');
 
 -- ----------------------------
 -- 6、用户和角色关联表  用户N-1角色
@@ -695,3 +700,24 @@ create table gen_table_column (
   update_time       datetime                                   comment '更新时间',
   primary key (column_id)
 ) engine=innodb auto_increment=1 comment = '代码生成业务表字段' default charset=utf8;
+
+-- ----------------------------
+-- 21、コード表
+-- ----------------------------
+drop table if exists code;
+CREATE TABLE code (
+    cd VARCHAR(10) NOT NULL COMMENT 'コード', 
+    cd_key VARCHAR(20) NOT NULL COMMENT 'コードキー',
+    cd_nm VARCHAR(20) NOT NULL COMMENT 'コード値',
+    del_flg CHAR(1) DEFAULT '0' COMMENT '削除フラグ(0利用中,1削除済)',
+    create_by VARCHAR(64) DEFAULT '' COMMENT '作成者',
+    create_time DATETIME COMMENT '作成時刻',
+    update_by VARCHAR(64) DEFAULT '' COMMENT '更新車',
+    update_time DATETIME COMMENT '更新時刻',
+    remark VARCHAR(500) DEFAULT NULL COMMENT '備考'
+)  ENGINE=INNODB COMMENT='コード表' DEFAULT CHARSET=UTF8;
+
+insert into code values('edu','spe','大学(Specialist)','0','admin','2020-05-20 12-00-00','admin','2020-05-20 12-00-00','リスト_大学');
+insert into code values('edu','ugd','大学院(Undergraduate)','0','admin','2020-05-20 12-00-00','admin','2020-05-20 12-00-00','リスト_大学院');
+insert into code values('edu','mst','修士(Master)','0','admin','2020-05-20 12-00-00','admin','2020-05-20 12-00-00','リスト_修士');
+insert into code values('edu','phd','博士(PhD)','0','admin','2020-05-20 12-00-00','admin','2020-05-20 12-00-00','リスト_博士');
