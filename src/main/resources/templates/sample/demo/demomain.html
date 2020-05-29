@@ -1,135 +1,139 @@
 <!DOCTYPE html>
 <html lang="jp" xmlns:th="http://www.thymeleaf.org"
-	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <th:block th:include="include :: header('サンプル')"></th:block>
 </head>
 <body class="gray-bg">
-	<div class="container-div">
-		<div class="row">
-			<div class="col-sm-12 search-collapse">
-				<form id="demo-form">
-					<div class="select-list">
-						<ul>
-							<li><label th:text="#{label.demoName}"></label> <input
-								type="text" name="demoName"></li>
-							<li><label th:inline="text">[[${@title.getTitle('label.demoAge')}]]</label>
-								<input type="text" name="demoAge"></li>
-							<li><label th:text="${@title.getTitle('label.demoEdu')}"></label>
-							     <!-- 固定設定 -->
-								<select name="demoEdu">
-									<option value="">選択してください</option>
-									<option value="spe">大学(Specialist)</option>
-									<option value="ugd">大学院(Undergraduate)</option>
-									<option value="mst">修士(Master)</option>
-									<option value="phd">博士(PhD)</option>
-							     </select>
-							     <!-- list -->
+    <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="demo-form">
+                    <div class="select-list">
+                        <ul>
+                            <li><label th:text="#{label.demoName}"></label> <input
+                                type="text" name="demoName"></li>
+                            <li><label th:inline="text">[[${@title.getTitle('label.demoAge')}]]</label>
+                                <input type="text" name="demoAge"></li>
+                            <li><label th:text="${@title.getTitle('label.demoEdu')}"></label>
+                                <!-- 固定設定 -->
+                                <!-- 
+                                <select name="demoEdu">
+                                    <option value="">選択してください</option>
+                                    <option value="spe">大学(Specialist)</option>
+                                    <option value="ugd">大学院(Undergraduate)</option>
+                                    <option value="mst">修士(Master)</option>
+                                    <option value="phd">博士(PhD)</option>
+                                 </select>
+                                  -->
+                                 <!-- list -->
+                                 <!-- 
                                  <select name="demoEdu">
                                      <option value="">選択してください</option>
                                      <option th:each="edu:${edu}" th:value="${edu.cdKey}" th:text="${edu.cdNM}"></option>
                                  </select>
-							     <!-- map -->
-							     <select name="demoEdu">
-							         <option value="">選択してください</option>
-							         <option th:each="map:${eduMap}" th:value="${map.key}" th:text="${map.value}"></option>
-							     </select>
-							</li>
-							<li class="select-time">
+                                  -->
+                                 <!-- map -->
+                                 <select name="demoEdu">
+                                     <option value="">選択してください</option>
+                                     <option th:each="map:${eduMap}" th:value="${map.key}" th:text="${map.value}"></option>
+                                 </select>
+                            </li>
+                            <li class="select-time">
                                 <label th:inline="text">[[${@title.getTitle('label.demoKikan')}]]</label>
-								<input type="text" class="time-input" id="startTime" name="demoBeginTime" placeholder="Start Time"> 
+                                <input type="text" class="time-input" id="startTime" name="demoBeginTime" placeholder="Start Time"> 
                                 <span>-</span>
-								<input type="text" class="time-input" id="endTime"	name="demoEndTime" placeholder="End Time"></li>
-							<li th:inline="text">
-                                <a	class="btn btn-primary btn-rounded btn-sm">
-                                    <i	class="fa fa-search"></i>&nbsp;[[${@title.getTitle('btn.search')}]]
+                                <input type="text" class="time-input" id="endTime"    name="demoEndTime" placeholder="End Time"></li>
+                            <li th:inline="text">
+                                <a    class="btn btn-primary btn-rounded btn-sm">
+                                    <i    class="fa fa-search"></i>&nbsp;[[${@title.getTitle('btn.search')}]]
                                 </a>
-								<a class="btn btn-warning btn-rounded btn-sm">
-                                    <i	class="fa fa-refresh"></i>&nbsp;[[${@title.getTitle('btn.reset')}]]
+                                <a class="btn btn-warning btn-rounded btn-sm">
+                                    <i    class="fa fa-refresh"></i>&nbsp;[[${@title.getTitle('btn.reset')}]]
                                 </a>
-							</li>
-						</ul>
-					</div>
-				</form>
-			</div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
 
-			<div class="btn-group-sm" id="toolbar" th:inline="text">
-				<a class="btn btn-success" onclick="$.operate.add()"
-					shiro:hasPermission="sample:demo:add"> <i class="fa fa-plus"></i>
-					[[${@title.getTitle('btn.new')}]]
-				</a> <a class="btn btn-primary single disabled"
-					onclick="$.operate.edit()" shiro:hasPermission="sample:demo:edit">
-					<i class="fa fa-edit"></i> [[${@title.getTitle('btn.edit')}]]
-				</a> <a class="btn btn-danger multiple disabled"
-					onclick="$.operate.removeAll()"
-					shiro:hasPermission="sample:demo:remove"> <i
-					class="fa fa-remove"></i> [[${@title.getTitle('btn.del')}]]
-				</a> <a class="btn btn-warning" onclick="$.table.exportExcel()"
-					shiro:hasPermission="sample:demo:export"> <i
-					class="fa fa-download"></i> [[${@title.getTitle('btn.output')}]]
-				</a>
-			</div>
+            <div class="btn-group-sm" id="toolbar" th:inline="text">
+                <a class="btn btn-success" onclick="$.operate.add()"
+                    shiro:hasPermission="sample:demo:add"> <i class="fa fa-plus"></i>
+                    [[${@title.getTitle('btn.new')}]]
+                </a> <a class="btn btn-primary single disabled"
+                    onclick="$.operate.edit()" shiro:hasPermission="sample:demo:edit">
+                    <i class="fa fa-edit"></i> [[${@title.getTitle('btn.edit')}]]
+                </a> <a class="btn btn-danger multiple disabled"
+                    onclick="$.operate.removeAll()"
+                    shiro:hasPermission="sample:demo:remove"> <i
+                    class="fa fa-remove"></i> [[${@title.getTitle('btn.del')}]]
+                </a> <a class="btn btn-warning" onclick="$.table.exportExcel()"
+                    shiro:hasPermission="sample:demo:export"> <i
+                    class="fa fa-download"></i> [[${@title.getTitle('btn.output')}]]
+                </a>
+            </div>
 
-			<div class="col-sm-12 select-table table-striped">
-				<table id="bootstrap-table"></table>
-			</div>
-			role
-		</div>
-	</div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+            role
+        </div>
+    </div>
 
-	<th:block th:include="include :: footer" />
-	<script type="text/javascript" th:inline="javascript">
-	
-		var editFlag = [[${@permission.hasPermi('sample:demo:edit')}]];
-		var removeFlag = [[${@permission.hasPermi('sample:demo:remove')}]];
-		var prefix = [[@{/}]]+"sample/demo";
-		
-		$(function(){
-		    var options={
-		        url:prefix + "/list",
-		        //追加URL
-		        createUrl: prefix + "/add",
-		        //更新URL
-		        updateUrl: prefix + "/edit/{id}",
-		        //削除URL
-		        removeUrl: prefix + "/remove",
-		        //出力URL
-		        exportUrl: prefix + "/export",
-		          //ポップのタイトル
-		        modalName: [[${@title.getTitle('pop.title')}]],
-		          //ソート列
-		        sortName: "demoSort,demoAge",
-		          //ソート型
-		        sortOrder: "desc",
-		        //各列
-		        columns:[{
-		            checkbox:true
-		        },{
-		            field:'demoId',
-		            title:[[${@title.getTitle('listlabel.id')}]]
-		        },{
-		            field:'demoName',
-		            title:[[${@title.getTitle('listlabel.name')}]],
-		            sortable:true
-		        },{
-		            field:'demoAge',
-		            title:[[${@title.getTitle('listlabel.age')}]],
-		            sortable:true
-		        },{
-		            field: 'demoEdu',
-		            title: [[${@title.getTitle('listlabel.edu')}]]
-	            },{
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript" th:inline="javascript">
+    
+        var editFlag = [[${@permission.hasPermi('sample:demo:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('sample:demo:remove')}]];
+        var prefix = [[@{/}]]+"sample/demo";
+        
+        $(function(){
+            var options={
+                url:prefix + "/list",
+                //追加URL
+                createUrl: prefix + "/add",
+                //更新URL
+                updateUrl: prefix + "/edit/{id}",
+                //削除URL
+                removeUrl: prefix + "/remove",
+                //出力URL
+                exportUrl: prefix + "/export",
+                  //ポップのタイトル
+                modalName: [[${@title.getTitle('pop.title')}]],
+                  //ソート列
+                sortName: "demoSort,demoAge",
+                  //ソート型
+                sortOrder: "desc",
+                //各列
+                columns:[{
+                    checkbox:true
+                },{
+                    field:'demoId',
+                    title:[[${@title.getTitle('listlabel.id')}]]
+                },{
+                    field:'demoName',
+                    title:[[${@title.getTitle('listlabel.name')}]],
+                    sortable:true
+                },{
+                    field:'demoAge',
+                    title:[[${@title.getTitle('listlabel.age')}]],
+                    sortable:true
+                },{
+                    field: 'demoEdu',
+                    title: [[${@title.getTitle('listlabel.edu')}]]
+                },{
                     field: 'demoSort',
                     title: [[${@title.getTitle('listlabel.sort')}]],
                     sortable: true
-		        },{
-		            field: 'createTime',
-		            title: [[${@title.getTitle('listlabel.createtime')}]],
-		            sortable:true
-		        },{
-		            field: 'createBy',
-		            title: [[${@title.getTitle('listlabel.createby')}]],
-		            sortable:true
+                },{
+                    field: 'createTime',
+                    title: [[${@title.getTitle('listlabel.createtime')}]],
+                    sortable:true
+                },{
+                    field: 'createBy',
+                    title: [[${@title.getTitle('listlabel.createby')}]],
+                    sortable:true
                 },{
                     field: 'updateTime',
                     title: [[${@title.getTitle('listlabel.updatetime')}]],
@@ -138,52 +142,52 @@
                     field: 'updateBy',
                     title: [[${@title.getTitle('listlabel.updateby')}]],
                     sortable:true
-		        },{
-		            field: 'status',
-		            title: [[${@title.getTitle('listlabel.status')}]],
-		            align: 'center',
-		            formatter: function (value, row, index) {
-		                if (row.status == 1) {
-		                    return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enable(\'' + row.demoId + '\')"></i> ';
-		                } else {
-		                    return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disable(\'' + row.demoId + '\')"></i> ';
-		                }
-		            }
-		        },{
-		            field: 'remark',
-		            title: [[${@title.getTitle('listlabel.remark')}]],
-		            sortable:false
-		        },{
-		            title:[[${@title.getTitle('listlabel.event')}]],
-		            align:'center',
-		            formatter: function(value,row,index){
-		                console.log(index,value);
-		                var actions = [];
-		                actions.push('<a class="btn btn-success btn-xs ' 
-		                        + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.demoId + '\')"><i class="fa fa-edit"></i>'+[[${@title.getTitle('btn.edit')}]]+'</a> ');
-		                actions.push('<a class="btn btn-danger btn-xs ' 
-		                        + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\''+row.demoId+'\')"><i class="fa fa-remove"></i>'+[[${@title.getTitle('btn.del')}]]+'</a> ');
-		                return actions.join('');
-		            }
-		        }]
-		    };
-		    $.table.init(options);
-		});
-		
-		
-		/* 停止 */
-		function disable(id) {
-		    $.modal.confirm("停止するか？", function() {
-		        $.operate.post(prefix + "/changeStatus", { "demoId": roleId, "status": 1 });
-		    })
-		}
-		
-		/* 開始 */
-		function enable(id) {
-		    $.modal.confirm("開始するか？", function() {
-		        $.operate.post(prefix + "/changeStatus", { "demoId": id, "status": 0 });
-		    })
-		}
-	</script>
+                },{
+                    field: 'status',
+                    title: [[${@title.getTitle('listlabel.status')}]],
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if (row.status == 1) {
+                            return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enable(\'' + row.demoId + '\')"></i> ';
+                        } else {
+                            return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disable(\'' + row.demoId + '\')"></i> ';
+                        }
+                    }
+                },{
+                    field: 'remark',
+                    title: [[${@title.getTitle('listlabel.remark')}]],
+                    sortable:false
+                },{
+                    title:[[${@title.getTitle('listlabel.event')}]],
+                    align:'center',
+                    formatter: function(value,row,index){
+                        console.log(index,value);
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' 
+                                + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.demoId + '\')"><i class="fa fa-edit"></i>'+[[${@title.getTitle('btn.edit')}]]+'</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' 
+                                + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\''+row.demoId+'\')"><i class="fa fa-remove"></i>'+[[${@title.getTitle('btn.del')}]]+'</a> ');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+        
+        
+        /* 停止 */
+        function disable(id) {
+            $.modal.confirm("停止するか？", function() {
+                $.operate.post(prefix + "/changeStatus", { "demoId": roleId, "status": 1 });
+            })
+        }
+        
+        /* 開始 */
+        function enable(id) {
+            $.modal.confirm("開始するか？", function() {
+                $.operate.post(prefix + "/changeStatus", { "demoId": id, "status": 0 });
+            })
+        }
+    </script>
 </body>
 </html>
